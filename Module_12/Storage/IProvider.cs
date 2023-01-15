@@ -5,6 +5,7 @@ namespace Storage
     public interface IProvider<T>
     {
         public void SaveItem(T item);
-        public List<T> SearchItemById(int id);
+
+        public T SearchItemById(int id);
     }
 }

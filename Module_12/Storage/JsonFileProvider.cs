@@ -25,7 +25,7 @@ namespace Storage
             File.WriteAllText(fileName, jsonString);
         }
 
-        public List<T> SearchItemById(int id)
+        public T SearchItemById(int id)
         {
             var directoryFiles = GetDirectoryFiles(FileType);
 
@@ -53,17 +53,18 @@ namespace Storage
                 }
             }
 
-            return result;
+            return result.FirstOrDefault();
         }
 
         private Type GetItemType(string typeName)
         {
             var modelDll = GetDirectoryFiles(ModelDll).FirstOrDefault();
             var assembly = Assembly.LoadFrom(modelDll);
+            typeName = typeName.ToUpper();
 
             foreach (var type in assembly.GetTypes())
             {
-                if (typeName == type.FullName)
+                if (typeName == type.FullName.ToUpper())
                 {
                     return type.GetTypeInfo().AsType();
                 }

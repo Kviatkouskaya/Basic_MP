@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Model;
 using Service;
 
@@ -66,9 +67,15 @@ namespace Library
             service.SaveItem(patent);
             service.SaveItem(magazine);
 
-            var doc2 = service.SearchItemById(1);
+            var cachedCardInfo = new List<Document>
+            {
+                service.SearchItemById(book.Id),
+                service.SearchItemById(localized.Id),
+                service.SearchItemById(patent.Id),
+                service.SearchItemById(magazine.Id)
+            };
 
-            ShowItems(doc2);
+            ShowItems(cachedCardInfo);
         }
     }
 }

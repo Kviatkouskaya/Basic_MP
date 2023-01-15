@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace Service
+﻿namespace Service
 {
     public interface IService<T>
     {
         public void SaveItem(T document);
-        public List<T> SearchItemById(int itemId);
+
+        public T SearchItemById(int itemId);
     }
 }
