@@ -1,13 +1,34 @@
-﻿using DbLibrary;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using DbLibrary;
 
 namespace OrdersApp
 {
-    internal class Program
+    public class Program
     {
+        private static void ShowOrders(List<OrderEntity> orders)
+        {
+            Console.WriteLine("\n List of Orders: \n");
+            foreach (var orderEntity in orders)
+            {
+                Console.WriteLine(orderEntity);
+            }
+        }
+
+        private static void ShowProducts(List<ProductEntity> products)
+        {
+            Console.WriteLine("\n List of Products: \n");
+            foreach (var entity in products)
+            {
+                Console.WriteLine(entity);
+            }
+        }
+
         static void Main(string[] args)
         {
-            /*
+            
+            var productRepository = new ProductRepository<ProductEntity>();
+            
             var product = new ProductEntity()
             {
                 Name = "Green apple",
@@ -18,11 +39,10 @@ namespace OrdersApp
                 Width = 0
             };
 
-            var repo = new ProductRepository<ProductEntity>();
-            repo.InsertItem(product);
-            repo.UpdateItem(new ProductEntity()
+            productRepository.InsertItem(product);
+            productRepository.UpdateItem(new ProductEntity()
             {
-                ProductId = 33,
+                ProductId = 8,
                 Name = "All green apple",
                 Description = "Green apples",
                 Weight = 20,
@@ -31,32 +51,36 @@ namespace OrdersApp
                 Width = 1
             });
 
-            var result = repo.SelectItemById(33);
-            var all = repo.SelectAll();
-            repo.DeleteItem(33);
-            */
-            
+            var searchedProduct = productRepository.SelectItemById(8);
+            Console.WriteLine(searchedProduct);
+
+            var fullProductsList = productRepository.SelectAll();
+            ShowProducts(fullProductsList);
+
+            productRepository.DeleteItem(8);
+
+            var orderRepository = new OrderRepository<OrderEntity>();
             var order = new OrderEntity()
             {
-                Status = 1,
+                Status = Status.NotStarted,
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
                 ProductId = 1
             };
 
-            var repo = new OrderRepository<OrderEntity>();
-            repo.InsertItem(order);
-            repo.UpdateItem(new OrderEntity()
+
+            orderRepository.InsertItem(order);
+            orderRepository.UpdateItem(new OrderEntity()
             {
                 OrderId = 5,
-                Status = 2,
+                Status = Status.Loading,
                 UpdatedDate = DateTime.Today,
                 ProductId = 3
             });
 
-            var result = repo.SelectItemById(1);
-            var all = repo.SelectAll();
-            repo.DeleteItem(1);
+            var searchedOrder = orderRepository.SelectItemById(8);
+            var fullOrdersList = orderRepository.SelectAll();
+            orderRepository.DeleteItem(8);
             
         }
     }

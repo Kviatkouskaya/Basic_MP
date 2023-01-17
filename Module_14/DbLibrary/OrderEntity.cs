@@ -7,7 +7,7 @@ namespace DbLibrary
     {
         public int OrderId { get; set; }
 
-        public int Status { get; set; }
+        public Enum Status { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

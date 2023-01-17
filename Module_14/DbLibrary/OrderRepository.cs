@@ -43,7 +43,7 @@ namespace DbLibrary
                 order = new OrderEntity()
                 {
                     OrderId = (int)dataReader[0],
-                    Status = Convert.ToInt32(dataReader[1]),
+                    Status = (Status)Convert.ToInt32(dataReader[1]),
                     CreatedDate = Convert.ToDateTime(dataReader[2].ToString()),
                     UpdatedDate = Convert.ToDateTime(dataReader[3]),
                     ProductId = Convert.ToInt32(dataReader[4])
@@ -92,7 +92,7 @@ namespace DbLibrary
             var order = new OrderEntity()
             {
                 OrderId = inputList[0] == null ? 0 : Convert.ToInt32(inputList[0]),
-                Status = inputList[1] == null || inputList[1] == string.Empty ? 0 : Convert.ToInt32(inputList[1]),
+                Status = inputList[1] == null || inputList[1] == string.Empty ? 0 : (Status)Convert.ToInt32(inputList[1]),
                 CreatedDate = Convert.ToDateTime(inputList[2]),
                 UpdatedDate = Convert.ToDateTime(inputList[3]),
                 ProductId = Convert.ToInt32(inputList[4])

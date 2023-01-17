@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -66,6 +65,8 @@ namespace DbLibrary
                 }
             }
 
+            _connection.Close();
+
             return (T)product;
         }
 
@@ -79,7 +80,9 @@ namespace DbLibrary
                 var product = ConvertToProductEntity(dataRow.ItemArray);
                 productList.Add((T)product);
             }
-
+            
+            _connection.Close();
+            
             return productList;
         }
 
@@ -102,7 +105,7 @@ namespace DbLibrary
         public void UpdateItem(T item)
         {
             FetchData();
-            
+
             foreach (DataRow dataRow in _dataSet.Tables[TableName].Rows)
             {
                 var itemId = dataRow[0] == null ? 0 : Convert.ToInt32(dataRow[0]);
