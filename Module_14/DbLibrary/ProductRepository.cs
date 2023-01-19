@@ -11,27 +11,30 @@ namespace DbLibrary
         private readonly string _connString = Properties.Settings.Default.OrderConnectionString;
         private SqlConnection _connection;
         private SqlDataAdapter _dataAdapter;
+        private SqlCommandBuilder _builder;
         private DataSet _dataSet;
         private const string TableName = "Products";
 
-        private void Connect()
-        {
-            _connection = new SqlConnection(_connString);
-            _connection.Open();
-        }
 
         private void FetchData()
         {
-            Connect();
+            _connection = new SqlConnection(_connString);
+            _connection.Open();
+
             _dataAdapter = new SqlDataAdapter($"SELECT * FROM {TableName}", _connection);
+
+            _builder = new SqlCommandBuilder(_dataAdapter);
+
             _dataSet = new DataSet();
+
             _dataAdapter.Fill(_dataSet, TableName);
         }
 
         public void InsertItem(T item)
         {
             FetchData();
-            DataRow dataRow = _dataSet.Tables[TableName].NewRow();
+
+            var dataRow = _dataSet.Tables[TableName].NewRow();
 
             dataRow[0] = item.ProductId;
             dataRow[1] = item.Name;
@@ -43,8 +46,8 @@ namespace DbLibrary
 
             _dataSet.Tables[TableName].Rows.Add(dataRow);
 
-            var builder = new SqlCommandBuilder(_dataAdapter);
-            builder.GetInsertCommand();
+            _builder.GetInsertCommand();
+
             _dataAdapter.Update(_dataSet, TableName);
 
             _connection.Close();
@@ -73,6 +76,7 @@ namespace DbLibrary
         public List<T> SelectAll()
         {
             FetchData();
+
             var productList = new List<T>();
 
             foreach (DataRow dataRow in _dataSet.Tables[0].Rows)
@@ -80,9 +84,9 @@ namespace DbLibrary
                 var product = ConvertToProductEntity(dataRow.ItemArray);
                 productList.Add((T)product);
             }
-            
+
             _connection.Close();
-            
+
             return productList;
         }
 
@@ -121,7 +125,10 @@ namespace DbLibrary
                 }
             }
 
+            _builder.GetUpdateCommand();
+
             _dataAdapter.Update(_dataSet, TableName);
+
             _connection.Close();
         }
 
@@ -140,7 +147,10 @@ namespace DbLibrary
                 }
             }
 
+            _builder.GetDeleteCommand();
+
             _dataAdapter.Update(_dataSet, "Products");
+
             _connection.Close();
         }
     }

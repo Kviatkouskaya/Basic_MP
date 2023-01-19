@@ -22,7 +22,7 @@ namespace DbLibrary
         {
             var query = "INSERT INTO dbo.Orders " +
                         "(status, created_date, updated_date, product_id) " +
-                        $"VALUES ({item.Status}, '{item.CreatedDate}', '{item.UpdatedDate}', {item.ProductId})";
+                        $"VALUES ({Convert.ToInt32(item.Status)}, '{item.CreatedDate}', '{item.UpdatedDate}', {item.ProductId})";
 
             ExecuteQuery(query);
         }
@@ -104,7 +104,7 @@ namespace DbLibrary
         public void UpdateItem(T item)
         {
             var query = "UPDATE dbo.Orders " +
-                        $"SET status = {item.Status}, updated_date = '{item.UpdatedDate}', product_id = {item.ProductId} " +
+                        $"SET status = {Convert.ToInt32(item.Status)}, updated_date = '{item.UpdatedDate}', product_id = {item.ProductId} " +
                         $"WHERE order_id = {item.OrderId}";
 
             ExecuteQuery(query);

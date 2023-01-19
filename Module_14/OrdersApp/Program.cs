@@ -42,7 +42,7 @@ namespace OrdersApp
             productRepository.InsertItem(product);
             productRepository.UpdateItem(new ProductEntity()
             {
-                ProductId = 8,
+                ProductId = 18,
                 Name = "All green apple",
                 Description = "Green apples",
                 Weight = 20,
@@ -51,14 +51,15 @@ namespace OrdersApp
                 Width = 1
             });
 
-            var searchedProduct = productRepository.SelectItemById(8);
+            var searchedProduct = productRepository.SelectItemById(18);
             Console.WriteLine(searchedProduct);
 
             var fullProductsList = productRepository.SelectAll();
             ShowProducts(fullProductsList);
 
-            productRepository.DeleteItem(8);
-
+            productRepository.DeleteItem(18);
+            
+            /*
             var orderRepository = new OrderRepository<OrderEntity>();
             var order = new OrderEntity()
             {
@@ -72,16 +73,16 @@ namespace OrdersApp
             orderRepository.InsertItem(order);
             orderRepository.UpdateItem(new OrderEntity()
             {
-                OrderId = 5,
+                OrderId = 9,
                 Status = Status.Loading,
                 UpdatedDate = DateTime.Today,
                 ProductId = 3
             });
 
-            var searchedOrder = orderRepository.SelectItemById(8);
+            var searchedOrder = orderRepository.SelectItemById(9);
             var fullOrdersList = orderRepository.SelectAll();
-            orderRepository.DeleteItem(8);
-            
+            orderRepository.DeleteItem(9);
+            */
         }
     }
 }
