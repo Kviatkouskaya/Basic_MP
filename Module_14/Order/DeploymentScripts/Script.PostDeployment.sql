@@ -14,3 +14,15 @@ GO
 :r .\Insert_Data.sql
 
 GO
+:r .\Procedures\Procedure_SelectByStatus.sql
+
+GO
+:r .\Procedures\Procedure_SelectByProductId.sql
+
+GO
+:r .\Procedures\Procedure_SelectByMonth.sql
+
+GO
+:r .\Procedures\Procedure_SelectByYear.sql
+
+GO

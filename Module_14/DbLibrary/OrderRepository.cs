@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace DbLibrary
@@ -62,6 +63,12 @@ namespace DbLibrary
 
             var command = new SqlCommand(query, _sqlConnection);
             _sqlConnection.Open();
+
+            return ReturnDataReaderResult(command);
+        }
+
+        private List<T> ReturnDataReaderResult(SqlCommand command)
+        {
             var ordersList = new List<T>();
 
             using (SqlDataReader reader = command.ExecuteReader())
@@ -116,6 +123,46 @@ namespace DbLibrary
                         $"WHERE order_id = {itemId}";
 
             ExecuteQuery(query);
+        }
+
+        public List<T> SelectByFilter(string filterName, int value)
+        {
+            switch (filterName)
+            {
+                case "Status":
+                    return ReturnStoredProcedureResult("SelectByStatus", "@status", value);
+                case "Product":
+                    return ReturnStoredProcedureResult("SelectByProductId", "@product_id", value);
+                case "Month":
+                    return ReturnStoredProcedureResult("SelectByMonth", "@month", value);
+                case "Year":
+                    return ReturnStoredProcedureResult("SelectByYear", "@year", value);
+
+                default:
+                    return new List<T>();
+            }
+        }
+
+        private List<T> ReturnStoredProcedureResult(string commandName, string parameterName, int value)
+        {
+            var command = new SqlCommand()
+            {
+                CommandText = commandName,
+                Connection = _sqlConnection,
+                CommandType = CommandType.StoredProcedure
+            };
+
+            var parameter = new SqlParameter()
+            {
+                ParameterName = parameterName,
+                Value = value,
+                Direction = ParameterDirection.Input
+            };
+
+            command.Parameters.Add(parameter);
+            _sqlConnection.Open();
+
+            return ReturnDataReaderResult(command);
         }
     }
 }

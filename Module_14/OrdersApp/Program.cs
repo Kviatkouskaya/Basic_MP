@@ -1,6 +1,6 @@
-﻿using System;
+﻿using DbLibrary;
+using System;
 using System.Collections.Generic;
-using DbLibrary;
 
 namespace OrdersApp
 {
@@ -26,9 +26,8 @@ namespace OrdersApp
 
         static void Main(string[] args)
         {
-            
             var productRepository = new ProductRepository<ProductEntity>();
-            
+
             var product = new ProductEntity()
             {
                 Name = "Green apple",
@@ -58,8 +57,8 @@ namespace OrdersApp
             ShowProducts(fullProductsList);
 
             productRepository.DeleteItem(18);
-            
-            /*
+
+
             var orderRepository = new OrderRepository<OrderEntity>();
             var order = new OrderEntity()
             {
@@ -80,9 +79,24 @@ namespace OrdersApp
             });
 
             var searchedOrder = orderRepository.SelectItemById(9);
+            Console.WriteLine(searchedOrder);
+
             var fullOrdersList = orderRepository.SelectAll();
+            ShowOrders(fullOrdersList);
+
             orderRepository.DeleteItem(9);
-            */
+
+            var ordersFiltered = orderRepository.SelectByFilter("Status", 1);
+            ShowOrders(ordersFiltered);
+
+            var ordersFiltered1 = orderRepository.SelectByFilter("Product", 2);
+            ShowOrders(ordersFiltered1);
+
+            var ordersFiltered2 = orderRepository.SelectByFilter("Month", 1);
+            ShowOrders(ordersFiltered2);
+
+            var ordersFiltered3 = orderRepository.SelectByFilter("Year", 2023);
+            ShowOrders(ordersFiltered3);
         }
     }
 }
