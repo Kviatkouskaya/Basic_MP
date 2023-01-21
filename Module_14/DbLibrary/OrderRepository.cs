@@ -127,42 +127,86 @@ namespace DbLibrary
 
         public List<T> SelectByFilter(string filterName, int value)
         {
-            switch (filterName)
+            switch (filterName.ToUpper())
             {
-                case "Status":
+                case "STATUS":
                     return ReturnStoredProcedureResult("SelectByStatus", "@status", value);
-                case "Product":
+                case "PRODUCT":
                     return ReturnStoredProcedureResult("SelectByProductId", "@product_id", value);
-                case "Month":
+                case "MONTH":
                     return ReturnStoredProcedureResult("SelectByMonth", "@month", value);
-                case "Year":
+                case "YEAR":
                     return ReturnStoredProcedureResult("SelectByYear", "@year", value);
-
                 default:
                     return new List<T>();
             }
         }
 
-        private List<T> ReturnStoredProcedureResult(string commandName, string parameterName, int value)
+        private List<T> ReturnStoredProcedureResult(string procedureName, string parameterName, int value)
         {
-            var command = new SqlCommand()
-            {
-                CommandText = commandName,
-                Connection = _sqlConnection,
-                CommandType = CommandType.StoredProcedure
-            };
+            var command = ReturnSpCommand(procedureName, parameterName, value);
 
-            var parameter = new SqlParameter()
-            {
-                ParameterName = parameterName,
-                Value = value,
-                Direction = ParameterDirection.Input
-            };
-
-            command.Parameters.Add(parameter);
             _sqlConnection.Open();
 
             return ReturnDataReaderResult(command);
+        }
+
+        public void DeleteBulkByCriterion(string criterion, int value)
+        {
+            switch (criterion.ToUpper())
+            {
+                case "STATUS":
+                    ExecuteBulkDeleteTransaction("DeleteByStatus", "@status", value);
+                    break;
+                case "PRODUCT":
+                    ExecuteBulkDeleteTransaction("SelectByProductId", "@product_id", value);
+                    break;
+                case "MONTH":
+                    ExecuteBulkDeleteTransaction("SelectByMonth", "@month", value);
+                    break;
+                case "YEAR":
+                    ExecuteBulkDeleteTransaction("SelectByYear", "@year", value);
+                    break;
+            }
+        }
+
+        private void ExecuteBulkDeleteTransaction(string procedureName, string parameterName, int value)
+        {
+
+            var command = ReturnSpCommand(procedureName, parameterName, value);
+
+            _sqlConnection.Open();
+
+            var transaction = _sqlConnection.BeginTransaction();
+            command.Transaction = transaction;
+
+            try
+            {
+                command.ExecuteNonQuery();
+                transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+
+            _sqlConnection.Close();
+        }
+
+        private SqlCommand ReturnSpCommand(string procedureName, string parameterName, int value)
+        {
+            return new SqlCommand
+            {
+                CommandText = procedureName,
+                Connection = _sqlConnection,
+                CommandType = CommandType.StoredProcedure,
+                Parameters = {  new SqlParameter
+                {
+                    ParameterName = parameterName,
+                    Value = value,
+                    Direction = ParameterDirection.Input
+                }}
+            };
         }
     }
 }

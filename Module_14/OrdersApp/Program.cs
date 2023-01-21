@@ -41,7 +41,7 @@ namespace OrdersApp
             productRepository.InsertItem(product);
             productRepository.UpdateItem(new ProductEntity()
             {
-                ProductId = 18,
+                ProductId = 8,
                 Name = "All green apple",
                 Description = "Green apples",
                 Weight = 20,
@@ -50,13 +50,13 @@ namespace OrdersApp
                 Width = 1
             });
 
-            var searchedProduct = productRepository.SelectItemById(18);
+            var searchedProduct = productRepository.SelectItemById(8);
             Console.WriteLine(searchedProduct);
 
             var fullProductsList = productRepository.SelectAll();
             ShowProducts(fullProductsList);
 
-            productRepository.DeleteItem(18);
+            productRepository.DeleteItem(8);
 
 
             var orderRepository = new OrderRepository<OrderEntity>();
@@ -72,19 +72,19 @@ namespace OrdersApp
             orderRepository.InsertItem(order);
             orderRepository.UpdateItem(new OrderEntity()
             {
-                OrderId = 9,
+                OrderId = 8,
                 Status = Status.Loading,
                 UpdatedDate = DateTime.Today,
                 ProductId = 3
             });
 
-            var searchedOrder = orderRepository.SelectItemById(9);
+            var searchedOrder = orderRepository.SelectItemById(8);
             Console.WriteLine(searchedOrder);
 
             var fullOrdersList = orderRepository.SelectAll();
             ShowOrders(fullOrdersList);
 
-            orderRepository.DeleteItem(9);
+            orderRepository.DeleteItem(8);
 
             var ordersFiltered = orderRepository.SelectByFilter("Status", 1);
             ShowOrders(ordersFiltered);
@@ -97,6 +97,14 @@ namespace OrdersApp
 
             var ordersFiltered3 = orderRepository.SelectByFilter("Year", 2023);
             ShowOrders(ordersFiltered3);
+
+            orderRepository.DeleteBulkByCriterion("Status", 0);
+            orderRepository.DeleteBulkByCriterion("Product", 2);
+            orderRepository.DeleteBulkByCriterion("Month", 1);
+            orderRepository.DeleteBulkByCriterion("Year", 2023);
+
+            var resultAfterDelete = orderRepository.SelectAll();
+            ShowOrders(resultAfterDelete);
         }
     }
 }

@@ -68,6 +68,10 @@
     <Build Include="dbo\Tables\Products.sql" />
     <PostDeploy Include="DeploymentScripts\Insert_Data.sql" />
     <Build Include="DeploymentScripts\Procedures\Procedure_SelectByStatus.sql" />
+    <Build Include="DeploymentScripts\Procedures\Procedure_DeleteByStatus.sql" />
+    <Build Include="DeploymentScripts\Procedures\Procedure_DeleteByProductId.sql" />
+    <Build Include="DeploymentScripts\Procedures\Procedure_DeleteByYear.sql" />
+    <Build Include="DeploymentScripts\Procedures\Procedure_DeleteByMonth.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DeploymentScripts\Script.PostDeployment.sql" />

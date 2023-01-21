@@ -26,3 +26,15 @@ GO
 :r .\Procedures\Procedure_SelectByYear.sql
 
 GO
+:r .\Procedures\Procedure_DeleteByStatus.sql
+
+GO
+:r .\Procedures\Procedure_DeleteByProductId.sql
+
+GO
+:r .\Procedures\Procedure_DeleteByMonth.sql
+
+GO
+:r .\Procedures\Procedure_DeleteByYear.sql
+
+GO
