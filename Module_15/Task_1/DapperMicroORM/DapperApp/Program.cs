@@ -111,6 +111,7 @@ namespace DapperApp
             {
                 Console.WriteLine("Bulk delete was successful");
             }
+
         }
     }
 }
