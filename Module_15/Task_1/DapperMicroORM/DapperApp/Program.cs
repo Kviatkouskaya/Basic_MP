@@ -35,8 +35,8 @@ namespace DapperApp
             var connectionString = ConfigurationManager.ConnectionStrings["OrderConnectionString"].ToString();
 
             _orderRepository = new OrderRepository<Order>(connectionString);
+            _productRepository = new ProductRepository<Product>(connectionString);
 
-            /*
             var order = new Order()
             {
                 Status = (int)OrderStatus.NotStarted,
@@ -44,27 +44,24 @@ namespace DapperApp
                 UpdatedDate = DateTime.Now,
                 ProductId = 1
             };
-            
 
-            orderRepository.Create(order);
-            orderRepository.Update(new Order()
+
+            _orderRepository.Create(order);
+            _orderRepository.Update(new Order()
             {
                 OrderId = 29,
                 Status = (int)OrderStatus.Loading,
                 UpdatedDate = DateTime.Now,
                 ProductId = 3
             });
-            */
+
             var searchedOrder = _orderRepository.Get(7);
             Console.WriteLine(searchedOrder);
-            /*
-            var fullOrdersList = orderRepository.GetItems();
+
+            var fullOrdersList = _orderRepository.GetItems();
             ShowOrders(fullOrdersList);
 
-            orderRepository.Delete(8);
-            */
-
-            _productRepository = new ProductRepository<Product>(connectionString);
+            _orderRepository.Delete(8);
 
             var product = new Product()
             {
@@ -76,19 +73,19 @@ namespace DapperApp
                 Width = 0
             };
 
-            //   productRepository.Create(product);
-            /*
-               productRepository.Update(new Product()
-               {
-                   ProductId = 8,
-                   Name = "All green apple",
-                   Description = "Green apples",
-                   Weight = 20,
-                   Height = 10,
-                   Length = 1,
-                   Width = 1
-               });
-            */
+            _productRepository.Create(product);
+
+            _productRepository.Update(new Product()
+            {
+                ProductId = 8,
+                Name = "All green apple",
+                Description = "Green apples",
+                Weight = 20,
+                Height = 10,
+                Length = 1,
+                Width = 1
+            });
+
             var searchedProduct = _productRepository.Get(7);
             Console.WriteLine(searchedProduct);
 
@@ -96,6 +93,25 @@ namespace DapperApp
             ShowProducts(fullProductsList);
 
             _productRepository.Delete(8);
+
+            var orderRepo = new OrderRepository<Order>(connectionString);
+
+            var selectByFilter = orderRepo.SelectByFilter("status", (int)OrderStatus.NotStarted);
+            ShowOrders(selectByFilter);
+
+            orderRepo.DeleteBulkByCriterion("status", (int)OrderStatus.NotStarted);
+
+            var selectByFilterAfterDelete = orderRepo.SelectByFilter("status", (int)OrderStatus.NotStarted);
+
+            if (selectByFilterAfterDelete.Count > 0)
+            {
+                ShowOrders(selectByFilterAfterDelete);
+            }
+            else
+            {
+                Console.WriteLine("Bulk delete was successful");
+            }
+
         }
     }
 }

@@ -63,5 +63,62 @@ namespace DapperLibrary
 
             dbConnection.Execute(query, item);
         }
+
+        public List<T> SelectByFilter(string filterName, int value)
+        {
+            switch (filterName.ToUpper())
+            {
+                case "STATUS":
+                    return ReturnStoredProcedureResult("SelectByStatus", "@status", value);
+                case "PRODUCT":
+                    return ReturnStoredProcedureResult("SelectByProductId", "@product_id", value);
+                case "MONTH":
+                    return ReturnStoredProcedureResult("SelectByMonth", "@month", value);
+                case "YEAR":
+                    return ReturnStoredProcedureResult("SelectByYear", "@year", value);
+                default:
+                    return new List<T>();
+            }
+        }
+
+        private List<T> ReturnStoredProcedureResult(string procedureName, string filterName, int value)
+        {
+            using IDbConnection dbConnection = new SqlConnection(_connectionString);
+
+            var parameters = new DynamicParameters();
+            parameters.Add(filterName, value);
+
+            return dbConnection.Query<T>(procedureName, parameters, commandType: CommandType.StoredProcedure).ToList();
+        }
+
+        public void DeleteBulkByCriterion(string criterion, int value)
+        {
+            switch (criterion.ToUpper())
+            {
+                case "STATUS":
+                    ExecuteBulkDeleteTransaction("DeleteByStatus", "@status", value);
+                    break;
+                case "PRODUCT":
+                    ExecuteBulkDeleteTransaction("SelectByProductId", "@product_id", value);
+                    break;
+                case "MONTH":
+                    ExecuteBulkDeleteTransaction("SelectByMonth", "@month", value);
+                    break;
+                case "YEAR":
+                    ExecuteBulkDeleteTransaction("SelectByYear", "@year", value);
+                    break;
+            }
+        }
+
+        private void ExecuteBulkDeleteTransaction(string procedureName, string filterName, int value)
+        {
+
+            using IDbConnection dbConnection = new SqlConnection(_connectionString);
+
+            var parameters = new DynamicParameters();
+            parameters.Add(filterName, value);
+
+            dbConnection.Query<T>(procedureName, parameters, commandType: CommandType.StoredProcedure);
+        }
     }
 }
