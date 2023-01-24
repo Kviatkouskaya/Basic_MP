@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "OrderDB", "OrderDB\OrderDB.sqlproj", "{C14F32B4-D50E-4A8B-B7CC-CAAF97081A75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperApp", "DapperApp\DapperApp.csproj", "{9E82BBDC-4BAD-45E2-8537-2491882273B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperApp", "DapperApp\DapperApp.csproj", "{9E82BBDC-4BAD-45E2-8537-2491882273B2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperLibrary", "DapperLibrary\DapperLibrary.csproj", "{872002E2-DFF2-435E-9BA9-C08C2D219EF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperLibrary", "DapperLibrary\DapperLibrary.csproj", "{872002E2-DFF2-435E-9BA9-C08C2D219EF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,12 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C14F32B4-D50E-4A8B-B7CC-CAAF97081A75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C14F32B4-D50E-4A8B-B7CC-CAAF97081A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C14F32B4-D50E-4A8B-B7CC-CAAF97081A75}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{C14F32B4-D50E-4A8B-B7CC-CAAF97081A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C14F32B4-D50E-4A8B-B7CC-CAAF97081A75}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C14F32B4-D50E-4A8B-B7CC-CAAF97081A75}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{9E82BBDC-4BAD-45E2-8537-2491882273B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9E82BBDC-4BAD-45E2-8537-2491882273B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E82BBDC-4BAD-45E2-8537-2491882273B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
