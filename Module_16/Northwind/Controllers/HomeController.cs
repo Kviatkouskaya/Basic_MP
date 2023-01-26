@@ -18,6 +18,16 @@ namespace Northwind.Controllers
             return View();
         }
 
+        public IActionResult Categories()
+        {
+            return View();
+        }
+
+        public IActionResult Products()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

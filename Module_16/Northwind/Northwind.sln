@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind", "Northwind.csproj", "{745C1622-DA3F-4BDB-8936-7054C96F7D0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "..\DataLayer\DataAccess.csproj", "{D681D5DD-FB95-44DE-B42D-B32C42E4799A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{745C1622-DA3F-4BDB-8936-7054C96F7D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{745C1622-DA3F-4BDB-8936-7054C96F7D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{745C1622-DA3F-4BDB-8936-7054C96F7D0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D681D5DD-FB95-44DE-B42D-B32C42E4799A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D681D5DD-FB95-44DE-B42D-B32C42E4799A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D681D5DD-FB95-44DE-B42D-B32C42E4799A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D681D5DD-FB95-44DE-B42D-B32C42E4799A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
