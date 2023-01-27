@@ -1,8 +1,14 @@
-﻿@{
+﻿@model List<DataAccess.CategoryEntity>
+
+@{
     ViewData["Title"] = "Categories";
 }
 
 <div class="text-center">
     <h1 class="display-4">Categories</h1>
+    @foreach (var item in Model)
+    {
+        <p>@item.CategoryName</p>
+    }
 </div>
 

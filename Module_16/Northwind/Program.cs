@@ -1,9 +1,18 @@
 using DataAccess;
+using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
+using Northwind.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<IRepository<CategoryEntity>, CategoryRepository<CategoryEntity>>();
+builder.Services.AddTransient<CategoryService>();
+
+builder.Services.AddTransient<IRepository<ProductEntity>, ProductRepository<ProductEntity>>();
+builder.Services.AddTransient<ProductService>();
 
 builder.Services.AddDbContext<NorthwindContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindContext")));

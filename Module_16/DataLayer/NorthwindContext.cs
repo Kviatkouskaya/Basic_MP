@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TransitLayer;
+﻿using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
 {
@@ -8,14 +8,16 @@ namespace DataAccess
         public NorthwindContext(DbContextOptions<NorthwindContext> options)
             : base(options) { Database.EnsureCreated(); }
 
-        public DbSet<CategoryModel> Categories { get; set; }
+        public DbSet<CategoryEntity> Categories { get; set; }
+        public DbSet<ProductEntity> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<CategoryModel>(entity =>
+            builder.Entity<CategoryEntity>(entity =>
             {
-                entity.HasIndex(x => x.Id).
-                    IsUnique();
+                entity.HasNoKey()
+                    .HasIndex(x => x.CategoryId)
+                    .IsUnique();
             });
 
             base.OnModelCreating(builder);

@@ -3,6 +3,8 @@
     public class CategoryRepository<T> : IRepository<T> where T : CategoryEntity
     {
         private NorthwindContext _context;
+        public CategoryRepository(NorthwindContext context) => _context = context;
+
         public List<T> GetItems()
         {
             var list = _context.Categories.ToList();

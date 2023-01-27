@@ -1,16 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Northwind.Models;
 using System.Diagnostics;
+using Northwind.Services;
 
 namespace Northwind.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly CategoryService _categoryService;
+        private readonly ProductService _productService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+                                CategoryService categoryService,
+                                ProductService productService)
         {
             _logger = logger;
+            _categoryService = categoryService;
+            _productService = _productService;
         }
 
         public IActionResult Index()
@@ -20,12 +27,16 @@ namespace Northwind.Controllers
 
         public IActionResult Categories()
         {
-            return View();
+            var categories = _categoryService.GetItems();
+
+            return View(categories);
         }
 
         public IActionResult Products()
         {
-            return View();
+            var products = _productService.GetItems();
+
+            return View(products);
         }
 
         public IActionResult Privacy()
