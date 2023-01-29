@@ -15,6 +15,7 @@ namespace Northwind.Controllers
             _logger = logger;
             _productService = productService;
         }
+
         public IActionResult Index()
         {
             var products = LimitProductsOnPage > 0 ?
@@ -35,6 +36,23 @@ namespace Northwind.Controllers
                                         string unitsOnOrder, string reorderLevel, string discontinued)
         {
             _productService.AddProduct(productName, supplierId, categoryId, quantityPerUnit, unitPrice, unitsInStock, unitsOnOrder, reorderLevel, discontinued);
+
+            return RedirectToAction("Index", "Product");
+        }
+
+        public IActionResult ShowFormEditProduct(int productId)
+        {
+            var product = _productService.GetProduct(Convert.ToInt32(productId));
+
+            return View(product);
+        }
+
+        public IActionResult EditProduct(int productId, string productName, string supplierId, string categoryId,
+            string quantityPerUnit, string unitPrice, string unitsInStock,
+            string unitsOnOrder, string reorderLevel, string discontinued)
+        {
+            _productService.UpdateProduct(productId, productName, supplierId, categoryId, quantityPerUnit, unitPrice, unitsInStock,
+                unitsOnOrder, reorderLevel, discontinued);
 
             return RedirectToAction("Index", "Product");
         }

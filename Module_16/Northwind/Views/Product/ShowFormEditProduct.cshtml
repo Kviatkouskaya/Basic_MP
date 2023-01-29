@@ -1,0 +1,24 @@
+﻿@model ProductModel
+
+@{
+    ViewData["Title"] = "EditProduct";
+}
+
+<h1>Edit product</h1>
+<div>
+    <table>
+        <tr>
+            <td>
+                <h5><em>Comment editing:</em></h5>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form method="post" asp-controller="Product" asp-action="EditProduct">
+                    <input type="hidden" id="productId" name="itemId" value=@Model.ProductId />
+                    <button type="submit">Submit</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>

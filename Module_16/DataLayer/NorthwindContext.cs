@@ -17,21 +17,21 @@ namespace DataAccess
             builder.Entity<CategoryEntity>(entity =>
             {
                 entity.HasNoKey()
-                    .HasIndex(x => x.CategoryId)
+                    .HasIndex(x => x.CategoryID)
                     .IsUnique();
             });
 
             builder.Entity<ProductEntity>(entity =>
             {
                 entity.HasNoKey()
-                    .HasIndex(x => x.ProductId)
+                    .HasIndex(x => x.ProductID)
                     .IsUnique();
             });
 
             builder.Entity<SupplierEntity>(entity =>
             {
                 entity.HasNoKey()
-                    .HasIndex(x => x.SupplierId)
+                    .HasIndex(x => x.SupplierID)
                     .IsUnique();
 
                 entity.Property(x => x.ContactName)

@@ -2,7 +2,8 @@
 {
     public interface IRepository<T> where T : class
     {
-        void AddItem(T product);
+        void AddItem(T item);
+        T GetItem(int itemId);
         List<T> GetItems();
         public List<T> GetItemsByLimit(int limit);
     }

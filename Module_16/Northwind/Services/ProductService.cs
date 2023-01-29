@@ -28,9 +28,9 @@ namespace Northwind.Services
 
             var result = products.Select(p => new ProductModel()
             {
-                ProductId = p.ProductId,
+                ProductId = p.ProductID,
                 ProductName = p.ProductName,
-                SupplierName = suppliers.Where(x => x.SupplierId == p.SupplierId)
+                SupplierName = suppliers.Where(x => x.SupplierID == p.SupplierId)
                     .Select(x => x.CompanyName).FirstOrDefault(),
                 CategoryId = p.CategoryId,
                 QuantityPerUnit = p.QuantityPerUnit,
@@ -51,9 +51,9 @@ namespace Northwind.Services
 
             var result = products.Select(p => new ProductModel()
             {
-                ProductId = p.ProductId,
+                ProductId = p.ProductID,
                 ProductName = p.ProductName,
-                SupplierName = suppliers.Where(x => x.SupplierId == p.SupplierId)
+                SupplierName = suppliers.Where(x => x.SupplierID == p.SupplierId)
                                         .Select(x => x.CompanyName).FirstOrDefault(),
                 CategoryId = p.CategoryId,
                 QuantityPerUnit = p.QuantityPerUnit,
@@ -85,6 +85,29 @@ namespace Northwind.Services
             };
 
             _productRepository.AddItem(product);
+        }
+
+        internal void UpdateProduct(int productId, string productName, string supplierId, string categoryId, string quantityPerUnit, string unitPrice, string unitsInStock, string unitsOnOrder, string reorderLevel, string discontinued) => throw new NotImplementedException();
+
+        public ProductModel GetProduct(int productId)
+        {
+
+            var item = _productRepository.GetItem(productId);
+            var supplierItem = _supplierRepository.GetItem(item.SupplierId);
+
+            return new ProductModel()
+            {
+                ProductId = item.ProductID,
+                ProductName = item.ProductName,
+                SupplierName = supplierItem.CompanyName,
+                CategoryId = item.CategoryId,
+                QuantityPerUnit = item.QuantityPerUnit,
+                UnitPrice = item.UnitPrice,
+                UnitsInStock = item.UnitsInStock,
+                UnitsOnOrder = item.UnitsOnOrder,
+                ReorderLevel = item.ReorderLevel,
+                Discontinued = item.Discontinued
+            };
         }
     }
 }

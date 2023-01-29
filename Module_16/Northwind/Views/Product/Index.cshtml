@@ -8,11 +8,11 @@
     <h1 class="display-4">Products</h1>
     <p></p>
 </div>
-<p>@Html.ActionLink("Add new product", "ShowFormAddProduct","Product")</p>
+<a asp-action="ShowFormAddProduct" asp-controller="Product">Add new product</a>
 <div>
     <table border="1">
         <tr>
-            <th>Product name</th>
+            <th>Product</th>
             <th>Supplier</th>
             <th>Category</th>
             <th>Quantity Per Unit</th>
@@ -21,11 +21,11 @@
             <th>Units On Order</th>
             <th>Reorder Level</th>
             <th>Discontinued</th>
+            <th>Edit</th>
         </tr>
         @foreach (var item in @Model)
         {
             <tr>
-                <th>@item.ProductId</th>
                 <th>@item.ProductName</th>
                 <th>@item.SupplierName</th>
                 <th>@item.CategoryId</th>
@@ -35,6 +35,9 @@
                 <th>@item.UnitsOnOrder</th>
                 <th>@item.ReorderLevel</th>
                 <th>@item.Discontinued</th>
+                <th>
+                    <a asp-action="ShowFormEditProduct" asp-controller="Product" asp-route-productId="@item.ProductId">Edit</a>
+                </th>
             </tr>
         }
     </table>
