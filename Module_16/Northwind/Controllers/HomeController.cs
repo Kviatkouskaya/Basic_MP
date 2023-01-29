@@ -8,16 +8,12 @@ namespace Northwind.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly CategoryService _categoryService;
-        private readonly ProductService _productService;
+        private readonly HomeService _homeService;
 
-        public HomeController(ILogger<HomeController> logger,
-                                CategoryService categoryService,
-                                ProductService productService)
+        public HomeController(ILogger<HomeController> logger, HomeService homeService)
         {
             _logger = logger;
-            _categoryService = categoryService;
-            _productService = _productService;
+            _homeService = homeService;
         }
 
         public IActionResult Index()
@@ -27,14 +23,14 @@ namespace Northwind.Controllers
 
         public IActionResult Categories()
         {
-            var categories = _categoryService.GetItems();
+            var categories = _homeService.GetCategories();
 
             return View(categories);
         }
 
         public IActionResult Products()
         {
-            var products = _productService.GetItems();
+            var products = _homeService.GetProductsWithCategoryName();
 
             return View(products);
         }

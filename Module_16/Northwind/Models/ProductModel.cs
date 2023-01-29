@@ -1,12 +1,12 @@
-﻿using Microsoft.SqlServer.Management.Smo.Agent;
+﻿using DataAccess.Models;
 
-namespace DataAccess.Models
+namespace Northwind.Models
 {
-    public class ProductEntity
+    public class ProductModel
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public int SupplierId { get; set; }
+        public string SupplierName { get; set; }
         public CategoryType CategoryId { get; set; }
         public string QuantityPerUnit { get; set; }
         public decimal UnitPrice { get; set; }

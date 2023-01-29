@@ -1,8 +1,41 @@
-﻿@{
+﻿@model List<ProductModel>
+
+@{
     ViewData["Title"] = "Products";
 }
 
 <div class="text-center">
     <h1 class="display-4">Products</h1>
+</div>
+<div>
+    <table border="1">
+        <tr>
+            <th>Product id</th>
+            <th>Product name</th>
+            <th>Supplier id</th>
+            <th>Category id</th>
+            <th>Quantity Per Unit</th>
+            <th>Unit Price</th>
+            <th>Units In Stock</th>
+            <th>Units On Order</th>
+            <th>Reorder Level</th>
+            <th>Discontinued</th>
+        </tr>
+        @foreach (var item in @Model)
+        {
+            <tr>
+                <th>@item.ProductId</th>
+                <th>@item.ProductName</th>
+                <th>@item.SupplierName</th>
+                <th>@item.CategoryId</th>
+                <th>@item.QuantityPerUnit</th>
+                <th>@item.UnitPrice</th>
+                <th>@item.UnitsInStock</th>
+                <th>@item.UnitsOnOrder</th>
+                <th>@item.ReorderLevel</th>
+                <th>@item.Discontinued</th>
+            </tr>
+        }
+    </table>
 </div>
 
