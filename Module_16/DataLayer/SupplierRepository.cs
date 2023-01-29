@@ -8,6 +8,8 @@ namespace DataAccess
 
         public SupplierRepository(NorthwindContext context) => _context = context;
 
+        public void AddItem(T product) => throw new NotImplementedException();
+
         public List<T> GetItems()
         {
             var list = _context.Suppliers.ToList();

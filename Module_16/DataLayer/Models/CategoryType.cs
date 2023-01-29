@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DataAccess.Models
 {
@@ -11,8 +7,11 @@ namespace DataAccess.Models
         Beverages = 1,
         Condiments = 2,
         Confections = 3,
-        DairyProducts = 4,
+        [Display(Name = "Daily products")]
+        DailyProducts = 4,
+        [Display(Name = "Grains cereals")]
         GrainsCereals = 5,
+        [Display(Name = "Meat poultry")]
         MeatPoultry = 6,
         Produce = 7,
         Seafood = 8

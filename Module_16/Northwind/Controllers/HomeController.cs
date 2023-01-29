@@ -21,18 +21,11 @@ namespace Northwind.Controllers
             return View();
         }
 
-        public IActionResult Categories()
+        public IActionResult ShowCategories()
         {
             var categories = _homeService.GetCategories();
 
             return View(categories);
-        }
-
-        public IActionResult Products()
-        {
-            var products = _homeService.GetProductsWithCategoryName();
-
-            return View(products);
         }
 
         public IActionResult Privacy()

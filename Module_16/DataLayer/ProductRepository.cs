@@ -8,6 +8,12 @@ namespace DataAccess
 
         public ProductRepository(NorthwindContext context) => _context = context;
 
+        public void AddItem(T product)
+        {
+            _context.Products.Add(product);
+            _context.SaveChanges();
+        }
+
         public List<T> GetItems()
         {
             var list = _context.Products.ToList();

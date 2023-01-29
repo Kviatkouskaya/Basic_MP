@@ -1,6 +1,4 @@
-﻿using Microsoft.SqlServer.Management.Smo.Agent;
-
-namespace DataAccess.Models
+﻿namespace DataAccess.Models
 {
     public class ProductEntity
     {

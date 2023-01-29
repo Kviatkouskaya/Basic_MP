@@ -5,6 +5,8 @@
         private NorthwindContext _context;
         public CategoryRepository(NorthwindContext context) => _context = context;
 
+        public void AddItem(T product) => throw new NotImplementedException();
+
         public List<T> GetItems()
         {
             var list = _context.Categories.ToList();

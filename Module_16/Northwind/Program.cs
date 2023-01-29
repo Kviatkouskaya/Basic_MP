@@ -8,11 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddTransient<IRepository<ProductEntity>, ProductRepository<ProductEntity>>();
 builder.Services.AddTransient<IRepository<CategoryEntity>, CategoryRepository<CategoryEntity>>();
 builder.Services.AddTransient<IRepository<SupplierEntity>, SupplierRepository<SupplierEntity>>();
 
 builder.Services.AddTransient<HomeService>();
+
+builder.Services.AddTransient<IRepository<ProductEntity>, ProductRepository<ProductEntity>>();
+builder.Services.AddTransient<ProductService>();
 
 builder.Services.AddDbContext<NorthwindContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindContext")));
