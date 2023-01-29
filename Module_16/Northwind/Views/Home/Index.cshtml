@@ -5,6 +5,7 @@
 <div class="text-center">
     <h1 class="display-4">Welcome back!</h1>
     <p></p>
-    <p>@Html.ActionLink("Categories", "ShowCategories","Home")</p>
-    <p>@Html.ActionLink("Products", "Index", "Product")</p>
+    <a asp-action="ShowCategories" asp-controller="Home">Categories</a>
+    <p></p>
+    <a asp-action="Index" asp-controller="Product">Products</a>
 </div>

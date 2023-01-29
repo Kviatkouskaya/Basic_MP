@@ -16,7 +16,9 @@ namespace DataAccess
 
         public T GetItem(int itemId)
         {
-            return (T)_context.Products.Where(x => x.ProductID == itemId);
+            var result = _context.Products.Where(x => x.ProductID == itemId).FirstOrDefault();
+
+            return (T)result;
         }
 
         public List<T> GetItems()
@@ -43,6 +45,12 @@ namespace DataAccess
             }
 
             return result;
+        }
+
+        public void UpdateItem(T item)
+        {
+            _context.Products.Update(item);
+            _context.SaveChanges();
         }
     }
 }

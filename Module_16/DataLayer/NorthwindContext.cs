@@ -19,6 +19,9 @@ namespace DataAccess
                 entity.HasNoKey()
                     .HasIndex(x => x.CategoryID)
                     .IsUnique();
+
+                entity.Property(x => x.Description)
+                    .IsRequired(false);
             });
 
             builder.Entity<ProductEntity>(entity =>

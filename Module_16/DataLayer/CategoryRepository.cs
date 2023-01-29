@@ -6,6 +6,7 @@
         public CategoryRepository(NorthwindContext context) => _context = context;
 
         public void AddItem(T item) => throw new NotImplementedException();
+
         public T GetItem(int itemId) => throw new NotImplementedException();
 
         public List<T> GetItems()
@@ -22,5 +23,7 @@
         }
 
         public List<T> GetItemsByLimit(int limit) => throw new NotImplementedException();
+
+        public void UpdateItem(T item) => throw new NotImplementedException();
     }
 }

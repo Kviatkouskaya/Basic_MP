@@ -67,27 +67,47 @@ namespace Northwind.Services
             return result;
         }
 
-        public void AddProduct(string productName, string supplierId, string categoryId,
-                                string quantityPerUnit, string unitPrice, string unitsInStock,
-                                string unitsOnOrder, string reorderLevel, string discontinued)
+        public void AddProduct(string productName, int supplierId, int categoryId,
+            string quantityPerUnit, decimal unitPrice, Int16 unitsInStock,
+            Int16 unitsOnOrder, Int16 reorderLevel, bool discontinued)
         {
             var product = new ProductEntity()
             {
                 ProductName = productName,
-                SupplierId = Convert.ToInt32(supplierId),
-                CategoryId = (CategoryType)Convert.ToInt32(categoryId),
+                SupplierId = supplierId,
+                CategoryId = (CategoryType)categoryId,
                 QuantityPerUnit = quantityPerUnit,
-                UnitPrice = Convert.ToDecimal(unitPrice),
-                UnitsInStock = Convert.ToInt16(unitsInStock),
-                UnitsOnOrder = Convert.ToInt16(unitsOnOrder),
-                ReorderLevel = Convert.ToInt16(reorderLevel),
-                Discontinued = Convert.ToBoolean(discontinued)
+                UnitPrice = unitPrice,
+                UnitsInStock = unitsInStock,
+                UnitsOnOrder = unitsOnOrder,
+                ReorderLevel = reorderLevel,
+                Discontinued = discontinued
             };
 
             _productRepository.AddItem(product);
         }
 
-        internal void UpdateProduct(int productId, string productName, string supplierId, string categoryId, string quantityPerUnit, string unitPrice, string unitsInStock, string unitsOnOrder, string reorderLevel, string discontinued) => throw new NotImplementedException();
+        public void UpdateProduct(int productId, string productName, int categoryId,
+                                    string quantityPerUnit, decimal unitPrice, Int16 unitsInStock,
+                                    Int16 unitsOnOrder, Int16 reorderLevel, bool discontinued)
+        {
+            var oldProductEntity = _productRepository.GetItem(productId);
+
+            var product = new ProductEntity()
+            {
+                ProductName = productName,
+                CategoryId = (CategoryType)categoryId,
+                SupplierId = oldProductEntity.SupplierId,
+                QuantityPerUnit = quantityPerUnit,
+                UnitPrice = unitPrice,
+                UnitsInStock = unitsInStock,
+                UnitsOnOrder = unitsOnOrder,
+                ReorderLevel = reorderLevel,
+                Discontinued = discontinued
+            };
+
+            _productRepository.UpdateItem(product);
+        }
 
         public ProductModel GetProduct(int productId)
         {

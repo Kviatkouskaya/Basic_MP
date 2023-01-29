@@ -6,5 +6,6 @@
         T GetItem(int itemId);
         List<T> GetItems();
         public List<T> GetItemsByLimit(int limit);
+        public void UpdateItem(T item);
     }
 }

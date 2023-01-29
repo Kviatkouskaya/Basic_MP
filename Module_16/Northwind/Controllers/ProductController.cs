@@ -31,9 +31,9 @@ namespace Northwind.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(string productName, string supplierId, string categoryId,
-                                        string quantityPerUnit, string unitPrice, string unitsInStock,
-                                        string unitsOnOrder, string reorderLevel, string discontinued)
+        public IActionResult AddProduct(string productName, int supplierId, int categoryId,
+            string quantityPerUnit, decimal unitPrice, Int16 unitsInStock,
+            Int16 unitsOnOrder, Int16 reorderLevel, bool discontinued)
         {
             _productService.AddProduct(productName, supplierId, categoryId, quantityPerUnit, unitPrice, unitsInStock, unitsOnOrder, reorderLevel, discontinued);
 
@@ -47,11 +47,16 @@ namespace Northwind.Controllers
             return View(product);
         }
 
-        public IActionResult EditProduct(int productId, string productName, string supplierId, string categoryId,
-            string quantityPerUnit, string unitPrice, string unitsInStock,
-            string unitsOnOrder, string reorderLevel, string discontinued)
+        public async Task<IActionResult> EditProduct(int productId, string productName, int categoryId,
+            string quantityPerUnit, decimal unitPrice, Int16 unitsInStock,
+            Int16 unitsOnOrder, Int16 reorderLevel, bool discontinued)
         {
-            _productService.UpdateProduct(productId, productName, supplierId, categoryId, quantityPerUnit, unitPrice, unitsInStock,
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("ShowFormEditProduct", productId);
+            }
+
+            _productService.UpdateProduct(productId, productName, categoryId, quantityPerUnit, unitPrice, unitsInStock,
                 unitsOnOrder, reorderLevel, discontinued);
 
             return RedirectToAction("Index", "Product");

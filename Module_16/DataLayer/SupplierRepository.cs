@@ -9,9 +9,12 @@ namespace DataAccess
         public SupplierRepository(NorthwindContext context) => _context = context;
 
         public void AddItem(T item) => throw new NotImplementedException();
+
         public T GetItem(int itemId)
         {
-            return _context.Suppliers.Where(x => x.SupplierID == itemId) as T;
+            var item = _context.Suppliers.Where(x => x.SupplierID == itemId).FirstOrDefault();
+
+            return (T)item;
         }
 
         public List<T> GetItems()
@@ -28,5 +31,7 @@ namespace DataAccess
         }
 
         public List<T> GetItemsByLimit(int limit) => throw new NotImplementedException();
+
+        public void UpdateItem(T item) => throw new NotImplementedException();
     }
 }
