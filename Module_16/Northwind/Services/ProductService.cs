@@ -21,6 +21,28 @@ namespace Northwind.Services
             return _productRepository.GetItems();
         }
 
+        public List<ProductModel> GetProductsWithCategoryName(int limit)
+        {
+            var products = GetProducts().Take(limit);
+            var suppliers = _supplierRepository.GetItems();
+
+            var result = products.Select(p => new ProductModel()
+            {
+                ProductId = p.ProductId,
+                ProductName = p.ProductName,
+                SupplierName = suppliers.Where(x => x.SupplierId == p.SupplierId)
+                    .Select(x => x.CompanyName).FirstOrDefault(),
+                CategoryId = p.CategoryId,
+                QuantityPerUnit = p.QuantityPerUnit,
+                UnitPrice = p.UnitPrice,
+                UnitsInStock = p.UnitsInStock,
+                UnitsOnOrder = p.UnitsOnOrder,
+                ReorderLevel = p.ReorderLevel,
+                Discontinued = p.Discontinued
+            }).ToList();
+
+            return result;
+        }
 
         public List<ProductModel> GetProductsWithCategoryName()
         {
