@@ -1,12 +1,12 @@
-﻿using DataAccess.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Northwind.Services;
 
 namespace Northwind.Controllers
 {
     public class ProductController : Controller
     {
+        private const int LimitProductsOnPage = 10;
+
         private readonly ILogger<HomeController> _logger;
         private readonly ProductService _productService;
 
@@ -17,7 +17,9 @@ namespace Northwind.Controllers
         }
         public IActionResult Index()
         {
-            var products = _productService.GetProductsWithCategoryName();
+            var products = LimitProductsOnPage > 0 ?
+                _productService.GetProductsWithCategoryName(LimitProductsOnPage) :
+                _productService.GetProductsWithCategoryName();
 
             return View(products);
         }

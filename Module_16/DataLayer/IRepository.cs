@@ -4,5 +4,6 @@
     {
         void AddItem(T product);
         List<T> GetItems();
+        public List<T> GetItemsByLimit(int limit);
     }
 }

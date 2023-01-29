@@ -22,5 +22,7 @@ namespace DataAccess
 
             return result;
         }
+
+        public List<T> GetItemsByLimit(int limit) => throw new NotImplementedException();
     }
 }

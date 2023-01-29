@@ -26,5 +26,18 @@ namespace DataAccess
 
             return result;
         }
+
+        public List<T> GetItemsByLimit(int limit)
+        {
+            var list = _context.Products.Take(limit).ToList();
+
+            var result = new List<T>();
+            foreach (var item in list)
+            {
+                result.Add((T)item);
+            }
+
+            return result;
+        }
     }
 }
