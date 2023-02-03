@@ -1,38 +1,39 @@
 ﻿using WebApi.Models;
+using WebApi.Services;
 
-namespace WebApi.Services
+namespace WebApi.Repository
 {
-    public class CategoryRepository<T> : IRepository<T> where T : Category
+    public class ProductRepository<T> : IRepository<T> where T : Product
     {
         private readonly WebApiContext _dbContext;
 
-        public CategoryRepository(WebApiContext webApiContext) => _dbContext = webApiContext;
+        public ProductRepository(WebApiContext dbContext) => _dbContext = dbContext;
 
         public void CreateItem(T item)
         {
-            _dbContext.Categories.Add(item);
+            _dbContext.Products.Add(item);
             _dbContext.SaveChanges();
         }
 
         public void DeleteItem(int id)
         {
-            var item = _dbContext.Categories.Where(x => x.CategoryID == id).FirstOrDefault();
+            var item = _dbContext.Products.Where(x => x.ProductID == id).FirstOrDefault();
 
-            _dbContext.Categories.Remove(item);
+            _dbContext.Products.Remove(item);
             _dbContext.SaveChanges();
         }
 
         public T GetItem(int id)
         {
-            return (T)_dbContext.Categories.Where(c => c.CategoryID == id).FirstOrDefault();
+            return (T)_dbContext.Products.Where(x => x.ProductID == id).FirstOrDefault();
         }
 
         public List<T> GetItems()
         {
-            var list = _dbContext.Categories.ToList();
+            var products = _dbContext.Products.ToList();
             var result = new List<T>();
 
-            foreach (var item in list)
+            foreach (var item in products)
             {
                 result.Add((T)item);
             }
@@ -42,7 +43,7 @@ namespace WebApi.Services
 
         public void UpdateItem(T item)
         {
-            _dbContext.Categories.Update(item);
+            _dbContext.Products.Update(item);
             _dbContext.SaveChanges();
         }
     }

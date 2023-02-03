@@ -4,14 +4,14 @@ using WebApi.Services;
 
 namespace WebApi.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
-        private readonly ILogger<CategoryController> _logger;
+        private readonly ILogger<CategoriesController> _logger;
         private CategoryService _categoryService;
 
-        public CategoryController(ILogger<CategoryController> logger, CategoryService categoryService)
+        public CategoriesController(ILogger<CategoriesController> logger, CategoryService categoryService)
         {
             _logger = logger;
             _categoryService = categoryService;
