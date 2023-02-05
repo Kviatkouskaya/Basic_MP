@@ -37,7 +37,7 @@ namespace WebApi.Controllers
                 unitsInStock, unitsOnOrder, reorderLevel, discontinued);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Put(int productId, string productName, int supplierID, int categoryID, string quantityPerUnit, decimal unitPrice,
             Int16 unitsInStock, Int16 unitsOnOrder, Int16 reorderLevel, bool discontinued)
         {
