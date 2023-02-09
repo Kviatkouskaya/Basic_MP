@@ -29,16 +29,10 @@ namespace WebApi.Services
 
         public List<T> GetItems()
         {
-            var list = _dbContext.Categories.ToList();
-            var result = new List<T>();
-
-            foreach (var item in list)
-            {
-                result.Add((T)item);
-            }
-
-            return result;
+            return _dbContext.Categories.Select(x => (T)x).ToList();
         }
+
+        public IEnumerable<T> GetItems(ProductParameters productParameters) => throw new NotImplementedException();
 
         public void UpdateItem(T item)
         {

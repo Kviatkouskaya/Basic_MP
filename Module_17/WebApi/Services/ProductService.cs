@@ -60,5 +60,10 @@ namespace WebApi.Services
                 Discontinued = discontinued
             });
         }
+
+        public IEnumerable<Product> GetProducts(ProductParameters productParameters)
+        {
+            return _productRepository.GetItems(productParameters);
+        }
     }
 }

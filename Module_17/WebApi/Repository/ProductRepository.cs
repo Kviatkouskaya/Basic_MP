@@ -1,4 +1,5 @@
-﻿using WebApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApi.Models;
 using WebApi.Services;
 
 namespace WebApi.Repository
@@ -30,15 +31,18 @@ namespace WebApi.Repository
 
         public List<T> GetItems()
         {
-            var products = _dbContext.Products.ToList();
-            var result = new List<T>();
+            return _dbContext.Products.Select(x => (T)x).ToList();
+        }
 
-            foreach (var item in products)
-            {
-                result.Add((T)item);
-            }
-
-            return result;
+        public IEnumerable<T> GetItems(ProductParameters productParameters)
+        {
+            return _dbContext.Products
+                .Where(x => x.CategoryID != (int)productParameters.CategoryType)
+                 .OrderBy(x => x.ProductName)
+                 .Skip(productParameters.PageNumber)
+                 .Take(productParameters.PageSize)
+                 .Select(x => (T)x)
+                 .ToList();
         }
 
         public void UpdateItem(T item)
@@ -46,5 +50,6 @@ namespace WebApi.Repository
             _dbContext.Products.Update(item);
             _dbContext.SaveChanges();
         }
+
     }
 }

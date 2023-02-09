@@ -1,4 +1,6 @@
-﻿namespace WebApi.Services
+﻿using WebApi.Models;
+
+namespace WebApi.Services
 {
     public interface IRepository<T> where T : class
     {
@@ -7,5 +9,6 @@
         T GetItem(int id);
         void UpdateItem(T item);
         void DeleteItem(int id);
+        IEnumerable<T> GetItems(ProductParameters productParameters);
     }
 }

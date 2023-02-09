@@ -23,6 +23,14 @@ namespace WebApi.Controllers
             return _productService.GetProducts();
         }
 
+        [HttpGet("pagenumber={pageNumber}%category={category}")]
+        public IEnumerable<Product> GetProducts([FromHeader]ProductParameters productParameters)
+        {
+           return _productService.GetProducts(productParameters);
+
+          //  return Ok(products);
+        }
+
         [HttpGet("{id}")]
         public Product Get(int id)
         {
