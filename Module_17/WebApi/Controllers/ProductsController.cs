@@ -27,8 +27,6 @@ namespace WebApi.Controllers
         public IEnumerable<Product> GetProducts([FromHeader]ProductParameters productParameters)
         {
            return _productService.GetProducts(productParameters);
-
-          //  return Ok(products);
         }
 
         [HttpGet("{id}")]
