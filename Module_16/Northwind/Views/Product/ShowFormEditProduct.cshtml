@@ -1,0 +1,51 @@
+﻿@using DataAccess.Models
+
+@model ProductModel
+
+@{
+    ViewData["Title"] = "EditProduct";
+}
+
+<h1 align="center">Edit product</h1>
+<div>
+    <form method="post" asp-controller="Product" asp-action="EditProduct">
+        <table align="center">
+            <input type="hidden" id="productId" name="productId" value=@Model.ProductId />
+            <tr>
+                <td>Product name:</td>
+                <td><input type="text" id="productName" name="ProductName" value="@Model.ProductName" /></td>
+            </tr>
+            <tr>
+                <td>Category type:</td>
+                <td><select id="categoryId" name="CategoryID" asp-items="Html.GetEnumSelectList<CategoryType>()"></select></td>
+            </tr>
+            <tr>
+                <td>Quantity per unit:</td>
+                <td><input type="text" id="quantityPerUnit" name="QuantityPerUnit" value="@Model.QuantityPerUnit" /></td>
+            </tr>
+            <tr>
+                <td>Unit price:</td>
+                <td><input type="text" id="unitPrice" name="UnitPrice" value="@Model.UnitPrice" /></td>
+            </tr>
+            <tr>
+                <td>Units in stock:</td>
+                <td><input type="text" id="unitsInStock" name="UnitsInStock" value="@Model.UnitsInStock" /></td>
+            </tr>
+            <tr>
+                <td>Units on order:</td>
+                <td><input type="text" id="unitsOnOrder" name="UnitsOnOrder" value="@Model.UnitsOnOrder" /></td>
+            </tr>
+            <tr>
+                <td>Reorder level:</td>
+                <td><input type="text" id="reorderLevel" name="ReorderLevel" value="@Model.ReorderLevel" /></td>
+            </tr>
+            <tr>
+                <td>Discontinued:</td>
+                <td><input type="text" id="discontinued" name="Discontinued" value="@Model.Discontinued" /></td>
+            </tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        </table>
+    </form>
+</div>
