@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
+using WebApi.Repository;
 using WebApi.Services;
 
 namespace WebApi.Controllers
@@ -9,52 +10,74 @@ namespace WebApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly ILogger<ProductsController> _logger;
-        private ProductService _productService;
+        private readonly ProductRepository<Product> _productRepository;
 
-        public ProductsController(ILogger<ProductsController> logger, ProductService productService)
+        public ProductsController(ILogger<ProductsController> logger, ProductRepository<Product> productRepository)
         {
             _logger = logger;
-            _productService = productService;
+            _productRepository = productRepository;
         }
 
         [HttpGet]
         public IEnumerable<Product> Get()
         {
-            return _productService.GetProducts();
+            return _productRepository.GetItems();
         }
 
         [HttpGet("pagenumber={pageNumber}%category={category}")]
-        public IEnumerable<Product> GetProducts([FromHeader]ProductParameters productParameters)
+        public IEnumerable<Product> GetProducts([FromHeader] ProductParameters productParameters)
         {
-           return _productService.GetProducts(productParameters);
+            return _productRepository.GetItems(productParameters);
         }
 
         [HttpGet("{id}")]
         public Product Get(int id)
         {
-            return _productService.GetProduct(id);
+            return _productRepository.GetItem(id);
         }
 
         [HttpPost]
         public void Post(string productName, int supplierID, int categoryID, string quantityPerUnit, decimal unitPrice,
             Int16 unitsInStock, Int16 unitsOnOrder, Int16 reorderLevel, bool discontinued)
         {
-            _productService.CreateProduct(productName, supplierID, categoryID, quantityPerUnit, unitPrice,
-                unitsInStock, unitsOnOrder, reorderLevel, discontinued);
+            _productRepository.CreateItem(new Product()
+            {
+                ProductName = productName,
+                SupplierID = supplierID,
+                CategoryID = categoryID,
+                QuantityPerUnit = quantityPerUnit,
+                UnitPrice = unitPrice,
+                UnitsInStock = unitsInStock,
+                UnitsOnOrder = unitsOnOrder,
+                ReorderLevel = reorderLevel,
+                Discontinued = discontinued
+            });
+
         }
 
         [HttpPut]
         public void Put(int productId, string productName, int supplierID, int categoryID, string quantityPerUnit, decimal unitPrice,
             Int16 unitsInStock, Int16 unitsOnOrder, Int16 reorderLevel, bool discontinued)
         {
-            _productService.UpdateProduct(productId, productName, supplierID, categoryID, quantityPerUnit,
-                unitPrice, unitsInStock, unitsOnOrder, reorderLevel, discontinued);
+            _productRepository.UpdateItem(new Product()
+            {
+                ProductID = productId,
+                ProductName = productName,
+                SupplierID = supplierID,
+                CategoryID = categoryID,
+                QuantityPerUnit = quantityPerUnit,
+                UnitPrice = unitPrice,
+                UnitsInStock = unitsInStock,
+                UnitsOnOrder = unitsOnOrder,
+                ReorderLevel = reorderLevel,
+                Discontinued = discontinued
+            });
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _productService.DeleteProduct(id);
+            _productRepository.DeleteItem(id);
         }
     }
 }

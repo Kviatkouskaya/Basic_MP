@@ -9,42 +9,53 @@ namespace WebApi.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ILogger<CategoriesController> _logger;
-        private CategoryService _categoryService;
 
-        public CategoriesController(ILogger<CategoriesController> logger, CategoryService categoryService)
+        private readonly CategoryRepository<Category> _categoryRepository;
+
+        public CategoriesController(ILogger<CategoriesController> logger,
+            CategoryRepository<Category> categoryRepository)
         {
             _logger = logger;
-            _categoryService = categoryService;
+            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
         public IEnumerable<Category> Get()
         {
-            return _categoryService.GetCategories();
+            return _categoryRepository.GetItems();
         }
 
         [HttpGet("{id}")]
         public Category Get(int id)
         {
-            return _categoryService.GetCategory(id);
+            return _categoryRepository.GetItem(id);
         }
 
         [HttpPost]
         public void Post(string categoryName, string description)
         {
-            _categoryService.CreateCategory(categoryName, description);
+            _categoryRepository.CreateItem(new Category()
+            {
+                CategoryName = categoryName,
+                Description = description
+            });
         }
 
         [HttpPut]
         public void Put(int id, string categoryName, string description)
         {
-            _categoryService.UpdateCategory(id, categoryName, description);
+            _categoryRepository.UpdateItem(new Category()
+            {
+                CategoryID = id,
+                CategoryName = categoryName,
+                Description = description
+            });
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _categoryService.DeleteCategory(id);
+            _categoryRepository.DeleteItem(id);
         }
     }
 }
