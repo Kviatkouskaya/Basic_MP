@@ -13,6 +13,12 @@ namespace WebApi.Models
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Product>(entity =>
+            {
+                entity.Property(x => x.ProductID)
+                    .IsRequired(false);
+            });
+
             builder.Entity<Category>(entity =>
             {
                 entity.Property(x => x.Picture)

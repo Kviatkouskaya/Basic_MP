@@ -32,13 +32,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public void Post(string categoryName, string description)
+        public void Post(Category category)
         {
-            _categoryRepository.CreateItem(new Category()
-            {
-                CategoryName = categoryName,
-                Description = description
-            });
+            _categoryRepository.CreateItem(category);
         }
 
         [HttpPut]
