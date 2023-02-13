@@ -1,12 +1,18 @@
 using DataAccess;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
+using Northwind.Models;
 using Northwind.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+
+builder.Services.Configure<ProductPageOptions>(builder.Configuration.GetSection("ProductPageOptions"));
+builder.Services.AddTransient<IProductPageService, ProductOptionService>();
 
 builder.Services.AddTransient<IRepository<CategoryEntity>, CategoryRepository<CategoryEntity>>();
 builder.Services.AddTransient<IRepository<SupplierEntity>, SupplierRepository<SupplierEntity>>();

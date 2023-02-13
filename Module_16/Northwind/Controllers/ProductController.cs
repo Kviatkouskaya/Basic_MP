@@ -5,22 +5,22 @@ namespace Northwind.Controllers
 {
     public class ProductController : Controller
     {
-        private const int LimitProductsOnPage = 10;
-
         private readonly ILogger<HomeController> _logger;
         private readonly ProductService _productService;
+        private IProductPageService _productPageService;
 
-        public ProductController(ILogger<HomeController> logger, ProductService productService)
+        public ProductController(ILogger<HomeController> logger, ProductService productService, IProductPageService productPageService)
         {
             _logger = logger;
             _productService = productService;
+            _productPageService = productPageService;
         }
 
         public IActionResult Index()
         {
-            var products = LimitProductsOnPage > 0 ?
-                _productService.GetProductsWithCategoryName(LimitProductsOnPage) :
-                _productService.GetProductsWithCategoryName();
+            var productLimit = Convert.ToInt32(_productPageService.GetUnits().ProductAmount);
+
+            var products = _productService.GetProductsWithCategoryName(productLimit);
 
             return View(products);
         }
